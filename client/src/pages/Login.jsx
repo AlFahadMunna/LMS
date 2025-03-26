@@ -28,6 +28,10 @@ const Login = () => {
       setLoginInput({ ...loginInput, [name]: value });
     }
   };
+  const handleRegistration = (type) => {
+    const inputData = type === "signup" ? signupInput : loginInput;
+    console.log(inputData);
+  };
   return (
     <div className="flex items-center w-full justify-center">
       <Tabs defaultValue="account" className="w-[400px]">
@@ -47,8 +51,10 @@ const Login = () => {
               <div className="space-y-1">
                 <Label htmlFor="name">Name</Label>
                 <Input
-                  onChange={changeInputHandler}
+                  onChange={(e) => changeInputHandler(e, "signup")}
                   type="text"
+                  name="name"
+                  value={signupInput.name}
                   placeholder="Eg. fahad"
                   required="true"
                 />
@@ -56,22 +62,28 @@ const Login = () => {
               <div className="space-y-1">
                 <Label htmlFor="username">Email</Label>
                 <Input
+                  onChange={(e) => changeInputHandler(e, "signup")}
                   type="email"
+                  name="email"
+                  value={signupInput.email}
                   placeholder="fahad@gmail.com"
                   required="true"
-                  onChange={changeInputHandler}
                 />
                 <Label htmlFor="username">Password</Label>
                 <Input
-                  onChange={changeInputHandler}
+                  onChange={(e) => changeInputHandler(e, "signup")}
                   type="password"
+                  name="password"
+                  value={signupInput.password}
                   placeholder="xyz"
                   required="true"
                 />
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Signup</Button>
+              <Button onClick={() => handleRegistration("signup")}>
+                Signup
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -88,23 +100,27 @@ const Login = () => {
                 <Label htmlFor="current">Email</Label>
                 <Input
                   type="email"
+                  name="email"
+                  value={loginInput.email}
                   placeholder="fahad@gmail.com"
                   required="true"
-                  onChange={changeInputHandler}
+                  onChange={(e) => changeInputHandler(e, "login")}
                 />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="new">Password</Label>
                 <Input
                   type="password"
+                  name="password"
+                  value={loginInput.password}
                   placeholder="xyz"
                   required="true"
-                  onChange={changeInputHandler}
+                  onChange={(e) => changeInputHandler(e, "login")}
                 />
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Login</Button>
+              <Button onClick={() => handleRegistration("login")}>Login</Button>
             </CardFooter>
           </Card>
         </TabsContent>
