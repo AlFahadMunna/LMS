@@ -1,4 +1,4 @@
-import User from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
@@ -11,7 +11,7 @@ export const register = async (req, res) => {
         message: "All fields are required!",
       });
     }
-    const user = await User.fineOne({ email });
+    const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
         success: false,
@@ -26,7 +26,7 @@ export const register = async (req, res) => {
     });
     return res
       .status(201)
-      .message({ success: true, message: "Account created successfully!" });
+      .json({ success: true, message: "Account created successfully!" });
   } catch (error) {
     console.log("error in creating user", error);
     return res.status(500).json({
@@ -45,7 +45,7 @@ export const login = async (req, res) => {
         message: "All fields are required!",
       });
     }
-    const user = await User.fineOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
         success: false,
