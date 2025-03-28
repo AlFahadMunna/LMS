@@ -15,7 +15,8 @@ import {
   useRegisterUserMutation,
 } from "@/features/api/authApi";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const Login = () => {
   const [signupInput, setSignupInput] = useState({
@@ -57,6 +58,27 @@ const Login = () => {
     const action = type === "signup" ? registerUser : loginUser;
     await action(inputData);
   };
+  useEffect(() => {
+    if (registerIsSuccess && registerData) {
+      toast.success(registerData.message || "Signup successful.");
+    }
+    if (registerError) {
+      toast.error(registerError.data.message || "Signup failed");
+    }
+    if (loginIsSuccess && loginData) {
+      toast.success(loginData.message || "Login successful.");
+    }
+    if (loginError) {
+      toast.error(loginError.data.message || "Login failed");
+    }
+  }, [
+    loginIsLoading,
+    registerIsLoading,
+    loginData,
+    registerData,
+    loginError,
+    registerError,
+  ]);
   return (
     <div className="flex items-center w-full justify-center">
       <Tabs defaultValue="account" className="w-[400px]">
