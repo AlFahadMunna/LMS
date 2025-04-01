@@ -82,3 +82,14 @@ export const logout = async (_, res) => {
     });
   }
 };
+
+export const getUserProfile = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log("error while login", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to load user",
+    });
+  }
+};
