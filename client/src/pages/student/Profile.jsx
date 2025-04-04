@@ -12,14 +12,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import Course from "./Course";
-import { useLoadUserQuery } from "@/features/api/authApi";
+import {
+  useLoadUserQuery,
+  useUpdateUserMutation,
+} from "@/features/api/authApi";
 
 const Profile = () => {
+  const [name, setName] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
   const { data, isLoading } = useLoadUserQuery();
+
+  const [
+    updateUser,
+    { data: updateUserData, isLoading: updateUserIsLoading, error },
+  ] = useUpdateUserMutation();
+
+  const onChangeHandler = (e) => {
+    const file = e.target.files?.[0];
+    if (file) setProfilePhoto(file);
+  };
   if (isLoading) return <h1>Profile Loading...</h1>;
   const { user } = data;
+  const updataUserHandler = () => {};
   return (
     <div className="max-w-4xl mx-auto px-4 my-10">
       <h2 className="font-bold text-2xl text-center md:text-left">PROFILR</h2>
@@ -75,17 +91,24 @@ const Profile = () => {
                   <Label>Name</Label>
                   <Input
                     type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="Name"
                     className="col-span-3"
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label>Profile Photo</Label>
-                  <Input type="file" accept="image/*" className="col-span-3" />
+                  <Input
+                    onChange={onChangeHandler}
+                    type="file"
+                    accept="image/*"
+                    className="col-span-3"
+                  />
                 </div>
               </div>
               <DialogFooter>
-                <Button disabled={isLoading}>
+                <Button disabled={isLoading} onClick={updataUserHandler}>
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
