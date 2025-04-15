@@ -1,3 +1,4 @@
+import RichTextEditor from "@/components/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import {
   Card,
