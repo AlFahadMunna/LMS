@@ -17,10 +17,10 @@ const Sidebar = () => {
           </Link>
         </div>
       </div>
-      <div className="flex-1 p-2 md:p-24 bg-white ">
+      <div className="flex-1 p-10">
         <Outlet />
       </div>
-    </div>
+    </div> 
   );
 };
 

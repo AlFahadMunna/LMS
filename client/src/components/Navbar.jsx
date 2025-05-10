@@ -43,14 +43,16 @@ const Navbar = () => {
   }, [isSuccess]);
 
   return (
-    <div className="h-16 dark:bg-[#0a0a0a] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
+    <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* for desktop */}
       <div className="max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full">
         <div className="flex items-center justify-center gap-2">
           <School size={"30"} />
-          <h2 className="hidden md:block font-extrabold text-2xl">
-            E-Learning
-          </h2>
+          <Link to="/">
+            <h2 className="hidden md:block font-extrabold text-2xl">
+              E-Learning
+            </h2>
+          </Link>
         </div>
         {/* user icon and dark mode icon */}
         <div className="flex items-center gap-8">
@@ -78,7 +80,7 @@ const Navbar = () => {
                     Logout
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
-                {user.role === "instructor" && (
+                {user?.role === "instructor" && (
                   <>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
@@ -102,7 +104,7 @@ const Navbar = () => {
       {/* mobile device */}
       <div className="flex md:hidden items-center justify-between px-4 h-full">
         <h2 className="font-extrabold text-2xl">E-Learning</h2>
-        <MobileNavbar />
+        <MobileNavbar user={user} />
       </div>
     </div>
   );
@@ -110,8 +112,8 @@ const Navbar = () => {
 
 export default Navbar;
 
-const MobileNavbar = () => {
-  const role = "instructor";
+const MobileNavbar = ({ user }) => {
+  const navigate = useNavigate();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -125,19 +127,24 @@ const MobileNavbar = () => {
       </SheetTrigger>
       <SheetContent className="flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between mt-8">
-          <SheetTitle>E-Learning</SheetTitle>
+        <SheetTitle> <Link to="/">E-Learning</Link></SheetTitle>
           <DarkMode />
         </SheetHeader>
         <Separator className="mr-2" />
         <nav className="flex flex-col space-y-4">
-          <span>My Learning</span>
-          <span>Edit Profile</span>
+        <Link to="/my-learning">My Learning</Link>
+        <Link to="/profile">Edit Profile</Link>
           <p>Logout</p>
         </nav>
-        {role === "instructor" && (
+        {user?.role === "instructor" && (
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Dashboard</Button>
+              <Button
+                onClick={() => navigate("/admin/dashboard")}
+                type="submit"
+              >
+                Dashboard
+              </Button>
             </SheetClose>
           </SheetFooter>
         )}

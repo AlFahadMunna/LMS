@@ -87,7 +87,9 @@ export const logout = async (_, res) => {
 export const getUserProfile = async (req, res) => {
   try {
     const userId = req.id;
-    const user = await User.findById(userId).select("-password");
+    const user = await User.findById(userId)
+      .select("-password")
+      .populate("enrolledCourses");
     if (!user) {
       return res
         .status(404)
@@ -130,13 +132,11 @@ export const updateProfile = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(userId, updatedData, {
       new: true,
     }).select("-password");
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "Profile updated successfully.",
-        user: updatedUser,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully.",
+      user: updatedUser,
+    });
   } catch (error) {
     console.log("error while login", error);
     return res.status(500).json({
