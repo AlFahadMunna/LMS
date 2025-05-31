@@ -10,8 +10,6 @@ import Dashboard from "./pages/admin/Dashboard";
 import CourseTable from "./pages/admin/course/CourseTable";
 import AddCourse from "./pages/admin/course/AddCourse";
 import EditCourse from "./pages/admin/course/EditCourse";
-import CreateLecture from "./pages/admin/lacture/CreateLecture";
-import EditLecture from "./pages/admin/lacture/EditLecture";
 import CourseDetail from "./pages/student/CourseDetail";
 import CourseProgress from "./pages/student/CourseProgress";
 import SearchPage from "./pages/student/SearchPage";
@@ -22,6 +20,8 @@ import {
 } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
 import { ThemeProvider } from "./components/ThemeProvider";
+import CreateLecture from "./pages/admin/lacture/CreateLecture";
+import EditLecture from "./pages/admin/lacture/EditLecture";
 
 const appRouter = createBrowserRouter([
   {
@@ -65,7 +65,6 @@ const appRouter = createBrowserRouter([
         path: "course/search",
         element: (
           <ProtectedRoute>
-            {" "}
             <SearchPage />
           </ProtectedRoute>
         ),
@@ -83,12 +82,13 @@ const appRouter = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <PurchaseCourseProtectedRoute>
-              <CourseProgress />
+            <CourseProgress />
             </PurchaseCourseProtectedRoute>
           </ProtectedRoute>
         ),
       },
-      //admin routes
+
+      // admin routes start from here
       {
         path: "admin",
         element: (
@@ -126,11 +126,12 @@ const appRouter = createBrowserRouter([
     ],
   },
 ]);
+
 function App() {
   return (
     <main>
       <ThemeProvider>
-        <RouterProvider router={appRouter} />
+      <RouterProvider router={appRouter} />
       </ThemeProvider>
     </main>
   );

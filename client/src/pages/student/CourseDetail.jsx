@@ -68,8 +68,8 @@ const CourseDetail = () => {
               <CardDescription>4 lectures</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              {course.lectures.map((lecture, index) => (
-                <div key={index} className="flex items-center gap-3 text-sm">
+              {course.lectures.map((lecture, idx) => (
+                <div key={idx} className="flex items-center gap-3 text-sm">
                   <span>
                     {true ? <PlayCircle size={14} /> : <Lock size={14} />}
                   </span>

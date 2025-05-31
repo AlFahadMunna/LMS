@@ -1,6 +1,5 @@
 import { Menu, School } from "lucide-react";
 import React, { useEffect } from "react";
-import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import DarkMode from "@/DarkMode";
 import {
@@ -37,24 +37,24 @@ const Navbar = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message || "User Logged out");
+      toast.success(data?.message || "User log out.");
       navigate("/login");
     }
   }, [isSuccess]);
 
   return (
     <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
-      {/* for desktop */}
+      {/* Desktop */}
       <div className="max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full">
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center gap-2">
           <School size={"30"} />
           <Link to="/">
-            <h2 className="hidden md:block font-extrabold text-2xl">
+            <h1 className="hidden md:block font-extrabold text-2xl">
               E-Learning
-            </h2>
+            </h1>
           </Link>
         </div>
-        {/* user icon and dark mode icon */}
+        {/* User icons and dark mode icon  */}
         <div className="flex items-center gap-8">
           {user ? (
             <DropdownMenu>
@@ -62,6 +62,7 @@ const Navbar = () => {
                 <Avatar>
                   <AvatarImage
                     src={user?.photoUrl || "https://github.com/shadcn.png"}
+                    alt="@shadcn"
                   />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
@@ -74,18 +75,17 @@ const Navbar = () => {
                     <Link to="my-learning">My learning</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link to="profile">Edit Profile</Link>
+                    {" "}
+                    <Link to="profile">Edit Profile</Link>{" "}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={logoutHandler}>
-                    Logout
+                    Log out
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 {user?.role === "instructor" && (
                   <>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Link to="/admin/dashboard">Dashboard</Link>
-                    </DropdownMenuItem>
+                    <DropdownMenuItem><Link to="/admin/dashboard">Dashboard</Link></DropdownMenuItem>
                   </>
                 )}
               </DropdownMenuContent>
@@ -101,10 +101,10 @@ const Navbar = () => {
           <DarkMode />
         </div>
       </div>
-      {/* mobile device */}
+      {/* Mobile device  */}
       <div className="flex md:hidden items-center justify-between px-4 h-full">
-        <h2 className="font-extrabold text-2xl">E-Learning</h2>
-        <MobileNavbar user={user} />
+        <h1 className="font-extrabold text-2xl">E-learning</h1>
+        <MobileNavbar user={user}/>
       </div>
     </div>
   );
@@ -112,39 +112,35 @@ const Navbar = () => {
 
 export default Navbar;
 
-const MobileNavbar = ({ user }) => {
+const MobileNavbar = ({user}) => {
   const navigate = useNavigate();
+  
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button
           size="icon"
-          className="rounded-full hover:bg-gray-200 "
+          className="rounded-full hover:bg-gray-200"
           variant="outline"
         >
           <Menu />
         </Button>
       </SheetTrigger>
       <SheetContent className="flex flex-col">
-        <SheetHeader className="flex flex-row items-center justify-between mt-8">
-        <SheetTitle> <Link to="/">E-Learning</Link></SheetTitle>
+        <SheetHeader className="flex flex-row items-center justify-between mt-2">
+          <SheetTitle> <Link to="/">E-Learning</Link></SheetTitle>
           <DarkMode />
         </SheetHeader>
         <Separator className="mr-2" />
         <nav className="flex flex-col space-y-4">
-        <Link to="/my-learning">My Learning</Link>
-        <Link to="/profile">Edit Profile</Link>
-          <p>Logout</p>
+          <Link to="/my-learning">My Learning</Link>
+          <Link to="/profile">Edit Profile</Link>
+          <p>Log out</p>
         </nav>
         {user?.role === "instructor" && (
           <SheetFooter>
             <SheetClose asChild>
-              <Button
-                onClick={() => navigate("/admin/dashboard")}
-                type="submit"
-              >
-                Dashboard
-              </Button>
+              <Button type="submit" onClick={()=> navigate("/admin/dashboard")}>Dashboard</Button>
             </SheetClose>
           </SheetFooter>
         )}

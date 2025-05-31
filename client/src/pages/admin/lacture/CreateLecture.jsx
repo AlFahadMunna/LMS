@@ -35,12 +35,13 @@ const CreateLecture = () => {
     if (isSuccess) {
       refetch();
       toast.success(data.message);
-      setLectureTitle("");
+      navigate("/admin/course");
     }
     if (error) {
       toast.error(error.data.message);
     }
   }, [isSuccess, error]);
+
   return (
     <div className="flex-1 mx-10">
       <div className="mb-4">
@@ -86,7 +87,7 @@ const CreateLecture = () => {
           ) : lectureError ? (
             <p>Failed to load lectures.</p>
           ) : lectureData.lectures.length === 0 ? (
-            <p>No lectures available</p>
+            <p>No lectures availabe</p>
           ) : (
             lectureData.lectures.map((lecture, index) => (
               <Lecture

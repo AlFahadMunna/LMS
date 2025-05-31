@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import Filter from "./Filter";
 import SearchResult from "./SearchResult";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetSearchCourseQuery } from "@/features/api/courseApi";
 import { Link, useSearchParams } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useGetSearchCoursesQuery } from "@/features/api/courseApi";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCatgories] = useState([]);
   const [sortByPrice, setSortByPrice] = useState("");
 
-  const { data, isLoading } = useGetSearchCoursesQuery({
+  const { data, isLoading } = useGetSearchCourseQuery({
     searchQuery:query,
     categories:selectedCategories,
     sortByPrice
@@ -22,7 +22,7 @@ const SearchPage = () => {
   const isEmpty = !isLoading && data?.courses.length === 0;
 
   const handleFilterChange = (categories, price) => {
-    setSelectedCategories(categories);
+    setSelectedCatgories(categories);
     setSortByPrice(price);
   }
   return (
@@ -38,8 +38,8 @@ const SearchPage = () => {
         <Filter handleFilterChange={handleFilterChange}/>
         <div className="flex-1">
           {isLoading ? (
-            Array.from({ length: 3 }).map((_, index) => (
-              <CourseSkeleton key={index} />
+            Array.from({ length: 3 }).map((_, idx) => (
+              <CourseSkeleton key={idx} />
             ))
           ) : isEmpty ? (
             <CourseNotFound />

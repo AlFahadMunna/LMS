@@ -1,3 +1,4 @@
+// McgPr7oX7v1mMcbN
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -45,7 +46,6 @@ const Login = () => {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginUserMutation();
-
   const navigate = useNavigate();
 
   const changeInputHandler = (e, type) => {
@@ -56,24 +56,26 @@ const Login = () => {
       setLoginInput({ ...loginInput, [name]: value });
     }
   };
+
   const handleRegistration = async (type) => {
     const inputData = type === "signup" ? signupInput : loginInput;
     const action = type === "signup" ? registerUser : loginUser;
     await action(inputData);
   };
+
   useEffect(() => {
-    if (registerIsSuccess && registerData) {
-      toast.success(registerData.message || "Signup successful.");
+    if(registerIsSuccess && registerData){
+      toast.success(registerData.message || "Signup successful.")
     }
-    if (registerError) {
-      toast.error(registerError.data.message || "Signup failed");
+    if(registerError){
+      toast.error(registerError.data.message || "Signup Failed");
     }
-    if (loginIsSuccess && loginData) {
+    if(loginIsSuccess && loginData){
       toast.success(loginData.message || "Login successful.");
       navigate("/");
     }
-    if (loginError) {
-      toast.error(loginError.data?.message || "Login failed");
+    if(loginError){ 
+      toast.error(loginError.data.message || "login Failed");
     }
   }, [
     loginIsLoading,
@@ -83,6 +85,7 @@ const Login = () => {
     loginError,
     registerError,
   ]);
+
   return (
     <div className="flex items-center w-full justify-center mt-20">
       <Tabs defaultValue="login" className="w-[400px]">
@@ -102,10 +105,10 @@ const Login = () => {
               <div className="space-y-1">
                 <Label htmlFor="name">Name</Label>
                 <Input
-                  onChange={(e) => changeInputHandler(e, "signup")}
                   type="text"
                   name="name"
                   value={signupInput.name}
+                  onChange={(e) => changeInputHandler(e, "signup")}
                   placeholder="Eg. fahad"
                   required="true"
                 />
@@ -113,20 +116,22 @@ const Login = () => {
               <div className="space-y-1">
                 <Label htmlFor="username">Email</Label>
                 <Input
-                  onChange={(e) => changeInputHandler(e, "signup")}
                   type="email"
                   name="email"
                   value={signupInput.email}
-                  placeholder="fahad@gmail.com"
+                  onChange={(e) => changeInputHandler(e, "signup")}
+                  placeholder="Eg. fahad@gmail.com"
                   required="true"
                 />
+              </div>
+              <div className="space-y-1">
                 <Label htmlFor="username">Password</Label>
                 <Input
-                  onChange={(e) => changeInputHandler(e, "signup")}
                   type="password"
                   name="password"
                   value={signupInput.password}
-                  placeholder="xyz"
+                  onChange={(e) => changeInputHandler(e, "signup")}
+                  placeholder="Eg. xyz"
                   required="true"
                 />
               </div>
@@ -138,8 +143,8 @@ const Login = () => {
               >
                 {registerIsLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Please wait...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please
+                    wait
                   </>
                 ) : (
                   "Signup"
@@ -163,9 +168,9 @@ const Login = () => {
                   type="email"
                   name="email"
                   value={loginInput.email}
-                  placeholder="fahad@gmail.com"
-                  required="true"
                   onChange={(e) => changeInputHandler(e, "login")}
+                  placeholder="Eg. fahad@gmail.com"
+                  required="true"
                 />
               </div>
               <div className="space-y-1">
@@ -174,9 +179,9 @@ const Login = () => {
                   type="password"
                   name="password"
                   value={loginInput.password}
-                  placeholder="xyz"
-                  required="true"
                   onChange={(e) => changeInputHandler(e, "login")}
+                  placeholder="Eg. xyz"
+                  required="true"
                 />
               </div>
             </CardContent>
@@ -187,8 +192,8 @@ const Login = () => {
               >
                 {loginIsLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Please wait...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please
+                    wait
                   </>
                 ) : (
                   "Login"

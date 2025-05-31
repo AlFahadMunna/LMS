@@ -15,6 +15,7 @@ import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+
 const AddCourse = () => {
   const [courseTitle, setCourseTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -33,12 +34,12 @@ const AddCourse = () => {
   };
 
   // for displaying toast
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success(data?.message || "Course created.");
-      navigate("/admin/course");
+  useEffect(()=>{
+    if(isSuccess){
+        toast.success(data?.message || "Course created.");
+        navigate("/admin/course");
     }
-  }, [isSuccess, error]);
+  },[isSuccess, error])
 
   return (
     <div className="flex-1 mx-10">
@@ -109,4 +110,5 @@ const AddCourse = () => {
     </div>
   );
 };
+
 export default AddCourse;
