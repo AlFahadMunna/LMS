@@ -204,7 +204,6 @@ export const createLecture = async (req, res) => {
     });
   }
 };
-
 export const getCourseLecture = async (req,res) => {
     try {
         const {courseId} = req.params;
@@ -313,7 +312,8 @@ export const getLectureById = async (req,res) => {
 }
 
 
-// publich unpublish course logic
+// publish unpublish course logic
+
 
 export const togglePublishCourse = async (req, res) => {
   try {
@@ -328,7 +328,7 @@ export const togglePublishCourse = async (req, res) => {
     }
 
     course.isPublished = publish === "true";
-    await course.save({ validateBeforeSave: false }); // ✅ skip full validation
+    await course.save({ validateBeforeSave: false });
 
     const statusMessage = course.isPublished ? "Published" : "Unpublished";
     return res.status(200).json({

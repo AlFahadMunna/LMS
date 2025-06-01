@@ -118,7 +118,6 @@ const CourseTab = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success(data.message || "Course update.");
-      navigate("/admin/course");
     }
     if (error) {
       toast.error(error.data.message || "Failed to update course");
@@ -222,7 +221,7 @@ const CourseTab = () => {
               </Select>
             </div>
             <div>
-              <Label>Price in (BDT)?</Label>
+              <Label>Price in (BDT)</Label>
               <Input
                 type="number"
                 name="coursePrice"
